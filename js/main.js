@@ -6,39 +6,20 @@ var bold = document.querySelector('#bold'),
     spellcheck = document.querySelector('#spellcheck')
 
 load()
-init()
 window.onresize = load
 function load() {
     txt.style.height = (window.innerHeight * 80 / 100).toString() + 'px';
 }
 
-function init() {
-    txt.style.fontFamily = 'Times New Roman'
-    font.style.fontFamily = 'Times New Roman'
-    size.value = "18"
-    txt.style.fontSize = '18px'
+function download() {
+    var textcontent = txt.value
+    var downloadableLink = document.createElement('a');
+    downloadableLink.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(textcontent));
+    downloadableLink.download = "download" + ".txt";
+    document.body.appendChild(downloadableLink);
+    downloadableLink.click();
+    document.body.removeChild(downloadableLink);
 }
 
-font.onchange = function () {
-    txt.style.fontFamily = font.value
-    font.style.fontFamily = font.value
-}
-
-size.onchange = function () {
-    txt.style.fontSize = size.value + 'px'
-}
-
-bold.onchange = function () {
-    if (this.checked) txt.style.fontWeight = 'bold'
-    else txt.style.fontWeight = 'unset'
-}
-
-italic.onchange = function () {
-    if (this.checked) txt.style.fontStyle = 'italic'
-    else txt.style.fontStyle = 'unset'
-}
-
-spellcheck.onchange = function () {
-    if (this.checked) txt.spellcheck=true
-    else txt.spellcheck=false
-}
+var down = document.querySelector('#down')
+down.onclick = download
